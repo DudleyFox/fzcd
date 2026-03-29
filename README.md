@@ -88,6 +88,35 @@ end
 
 ---
 
+## tmux-sessionizer integration
+
+[tmux-sessionizer](https://github.com/ThePrimeagen/tmux-sessionizer) uses `fzf` to pick a project directory and open (or switch to) a tmux session for it. You can swap that `fzf` call for `fzcd` to get an interactive tree navigator instead of a flat fuzzy list.
+
+The relevant line in tmux-sessionizer is:
+
+```bash
+selected=$(find_dirs | fzf)
+```
+
+Replace it with:
+
+```bash
+selected=$(fzcd ~)
+```
+
+`fzcd` prints the chosen path to stdout just like `fzf` does, so the rest of the script (`selected_name`, `tmux new-session`, `switch_to`, etc.) works unchanged.
+
+### Full diff
+
+```diff
+-selected=$(find_dirs | fzf)
++selected=$(fzcd ~)
+```
+
+> **Note:** Because `fzcd` renders its TUI on stderr and emits the chosen path on stdout, it is safe to capture with `$()` — the same guarantee that makes the original `fzf` approach work.
+
+---
+
 ## How it works
 
 - Written in Go using [Bubbletea](https://github.com/charmbracelet/bubbletea) for the TUI
