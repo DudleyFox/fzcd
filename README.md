@@ -67,6 +67,7 @@ eval "$(mise activate zsh)"    # zsh
 ```bash
 git clone https://github.com/DudleyFox/fzcd
 cd fzcd
+mise trust            # trust the .mise.toml in this directory
 mise install          # installs the pinned Go version
 make build            # outputs build/fzcd
 ```
