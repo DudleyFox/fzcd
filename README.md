@@ -45,13 +45,42 @@ If `path` is omitted, starts in the current directory.
 
 ## Installation
 
+### Requirements
+
+- [mise](https://mise.jdx.dev/) — manages the Go toolchain version (Go 1.26, pinned in `.mise.toml`)
+
+Install mise if you don't have it:
+
+```bash
+curl https://mise.run | sh
+```
+
+Then activate it in your shell (add to `~/.bashrc` / `~/.zshrc`):
+
+```bash
+eval "$(mise activate bash)"   # bash
+eval "$(mise activate zsh)"    # zsh
+```
+
 ### Build from source
 
 ```bash
-git clone https://github.com/yourname/fzcd
+git clone https://github.com/DudleyFox/fzcd
 cd fzcd
-go build -o fzcd .
-sudo mv fzcd /usr/local/bin/
+mise install          # installs the pinned Go version
+make build            # outputs build/fzcd
+```
+
+### Install to `~/.local/bin`
+
+```bash
+make install
+```
+
+This copies the binary to `~/.local/bin/fzcd`. Make sure `~/.local/bin` is on your `PATH`:
+
+```bash
+export PATH="$HOME/.local/bin:$PATH"
 ```
 
 ### Shell integration (required for `cd`)
